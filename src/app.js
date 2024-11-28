@@ -2,21 +2,22 @@ const express = require("express");
 
 const app = express();
 
-const { adminAuth, userAuth} = require("./middlewares/auth");
-app.use("/admin", adminAuth);
-//app.use("/user",  userAuth);
-
-app.get("/user", userAuth, (req,res) =>
-{
-    res.send("User Data");
+app.get("/getUserData", (req,res) =>
+{ 
+    try{ 
+        throw new Error("jdkschjsdk")
+        res.send("User Data sent")
+    }
+    catch(err){
+        res.status(500).send("something went wrong !!!");
+    }
+   
 })
-app.get("/admin/getAllData", (req, res) => {
-    //Logic of checking if the user is authorized
-   res.send("All the data sent")
-})
 
-app.get("/admin/deleteUser", (req,res) => {
-  res.send("Deleted user")
+app.use("/", (err, req, res, next) => {
+    if(err){
+        res.status(500).send("something went wrong");
+    }
 })
 
 app.listen(7777, () => {
