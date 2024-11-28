@@ -2,31 +2,37 @@ const express = require("express");
 
 const app = express();
 
-//made the route dynamic dynamic
-// app.get("/user/:userId/:name/:password", (req, res ) => {
-//     console.log(req.params)
-//     res.send({firstname : "Jyoti", lastname : "Pathak"})
-//    })
+app.use("/user", 
+    [
 
+    (req,res, next) => {
+        next();
+      console.log("Handling the route handler 1")
+     res.send("Response 1")
+     
+   }, 
+   (req, res,next) => {
+    console.log("Handling the route handler 2")
+    next();
+    res.send("Response 2")
+   
+   }  ],
+   (req, res, next) => {
+    console.log("Handling the route handler 3")
+     next();
+    res.send("Response 3")
+    next()
+   },
+   (req, res, next) => {
+    console.log("Handling the route handler 4")
+    res.send("Response 4")
+    next()
+    },
+    (req, res, next) => {
+        console.log("Handling the route handler 5")
+        res.send("Response 5")
 
-// app.get("/user", (req, res ) => {
-//     console.log(req.query)
-//     res.send({firstname : "Jyoti", lastname : "Pathak"})
-//    })
-
- app.get("/user/*fly$", (req, res ) => {
-        res.send({firstname : "Jyoti", lastname : "Pathak"})
-       })
-
-// app.post("/user", (req, res ) => {
-//     res.send("hello from post method");
-//    })
-
-// app.delete("/user", (req, res 
-// ) => {
-//     res.send("hello from delete method");
-//    })
-
+        })
 
 app.listen(7777, () => {
     console.log("listen port 7777");
