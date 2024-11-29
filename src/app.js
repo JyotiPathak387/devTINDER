@@ -1,25 +1,39 @@
 const express = require("express");
+const connectDB = require("./config/database")
+const User = require("./models/user");
+
 
 const app = express();
 
-app.get("/getUserData", (req,res) =>
-{ 
+app.post("/signup", async (req, res) => {
+    const user = new User({
+       firstName: "Divya",
+       lastName: "Mishra",
+       emailId: "Divya@mishra.com",
+       password: "divya@1232"
+    });
+
     try{ 
-        throw new Error("jdkschjsdk")
-        res.send("User Data sent")
+        await user.save();
+        res.send("User added successfully");
     }
-    catch(err){
-        res.status(500).send("something went wrong !!!");
-    }
-   
-})
+   catch(err){
+    res.status(400).send("Error having the message " + err.message);
+   }
+});
 
-app.use("/", (err, req, res, next) => {
-    if(err){
-        res.status(500).send("something went wrong");
-    }
-})
 
-app.listen(7777, () => {
+connectDB()
+.then(() => {
+   console.log("databse connected successfully");
+   app.listen(7777, () => {
     console.log("listen port 7777");
+});
 })
+.catch((err) => {
+   console.error("databse not connected");
+});
+
+
+
+

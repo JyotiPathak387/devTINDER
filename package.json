@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev" : "nodemon src/app.js"
+    "dev": "nodemon src/app.js"
   },
   "keywords": [
     "javascript",
     "node.js"
   ],
   "author": "Jyoti Pathak",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3"
+  }
 }
